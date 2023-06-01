@@ -50,6 +50,38 @@ Blockly.Lua['event_getHit'] = function(block) {
   return [code, Blockly.Lua.ORDER_ADDITIVE];
 };
 
+Blockly.Blocks['event_chatted'] = {
+  init: function() {
+    this.jsonInit({
+        "message0": "When %s Sends a Chat",
+        "args0": [
+          {
+              "type": "input_statement",
+              "name": "FUNCTION",
+            },
+
+            {
+              "type": "input_value",
+              "name": "OBJECT",
+            },
+        ],
+
+        "colour": "#19e642",
+        "previousStatement": "Action",
+        "nextStatement": "Action",
+
+        }
+
+        );
+  }
+};
+
+Blockly.Lua['event_getHit'] = function(block) {
+  let code = "hit";
+  
+  return [code, Blockly.Lua.ORDER_ADDITIVE];
+};
+
 Blockly.Blocks['event_onInputDown'] = {
   init: function() {
     this.jsonInit({
