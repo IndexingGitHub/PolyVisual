@@ -104,3 +104,23 @@ Blockly.Lua['player_getLocalPlr'] = function(block) {
   
   return [code, Blockly.Lua.ORDER_ADDITIVE];
 };
+
+Blockly.Blocks['player_getPlayer'] = {
+  init: function() {
+    this.jsonInit({
+        "message0": "Get Player",
+
+        "colour": "#ffa136",
+        "output": "Object"
+
+        }
+
+        );
+  }
+};
+
+Blockly.Lua['player_playerCount'] = function(block) {
+  let code = '#game["Players"]:GetPlayer()';
+  
+  return [code, Blockly.Lua.ORDER_ADDITIVE];
+};
