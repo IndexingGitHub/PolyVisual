@@ -50,35 +50,56 @@ Blockly.Lua['event_getHit'] = function(block) {
   return [code, Blockly.Lua.ORDER_ADDITIVE];
 };
 
-Blockly.Blocks['event_chatted'] = {
+Blockly.Blocks['event_onChatMsg'] = {
   init: function() {
     this.jsonInit({
-        "message0": "When %s Sends a Chat",
-        "args0": [
-          {
-              "type": "input_statement",
-              "name": "FUNCTION",
-            },
+      "message0": "When %1 Sends a Chat Message %2",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "Player",
+        },
+        {
+          "type": "input_statement",
+          "name": "FUNCTION"
+        },
+      ],
 
-            {
-              "type": "input_value",
-              "name": "OBJECT",
-            },
-        ],
-
-        "colour": "#19e642",
-        "previousStatement": "Action",
+      "colour": "#19e642",
+      "previousStatement": "Action",
         "nextStatement": "Action",
 
-        }
+      }
 
-        );
+      );
   }
 };
 
-Blockly.Lua['event_getHit'] = function(block) {
-  let code = "hit";
-  
+Blockly.Lua['event_onChatMsg'] = function(block) {
+  let substring = Blockly.Lua.statementToCode(block, 'FUNCTION') || '';
+  let player = Blockly.Lua.valueToCode(block, 'Player', Blockly.Lua.ORDER_NONE)
+  let code = player + '.Chatted:Connect(function (msg)\n' + substring + 'end)\n';
+
+  return code;
+};
+
+Blockly.Blocks['event_getMsg'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": "Get Sent Message",
+
+      "colour": "#19e642",
+      "output": "string"
+
+      }
+
+      );
+  }
+};
+
+Blockly.Lua['event_getMsg'] = function(block) {
+  let code = 'msg';
+
   return [code, Blockly.Lua.ORDER_ADDITIVE];
 };
 

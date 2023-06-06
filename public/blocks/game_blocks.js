@@ -121,6 +121,53 @@ Blockly.Blocks['game_getDeltaTime'] = {
   }
 };
 
+Blockly.Blocks['game_createExplosion'] = {
+  init: function() {
+      this.jsonInit({
+          "message0": "Create Explosion at %1 with a radius of %2 with a force of %3 that %4 affects anchored parts %5 Each Affected Part: %6",
+          "args0": [
+            {
+              "type": "input_value",
+              "name": "Position",
+              "check": "Vector3"
+            },
+            {
+              "type": "input_value",
+              "name": "Radius",
+              "check": "Number"
+            },
+            {
+              "type": "input_value",
+              "name": "Force",
+              "check": "Number"
+            },
+            {
+              "type": "field_dropdown",
+              "name": "AffectsAnchored",
+              "options": [
+                ["does", "true"],
+                ["doesn't", "false"]
+              ]
+            },
+            {
+              "type": "input_dummy"
+            },
+            {
+              "type": "input_statement",
+              "name": "EachAffectedPart"
+            }
+          ],
+
+          "colour": "#ffa136",
+          "previousStatement": "Action",
+            "nextStatement": "Action"
+
+          }
+
+          );
+  }
+};
+
 Blockly.Lua['game_broadcastMessage'] = function(block) {
   let subString = Blockly.Lua.valueToCode(block, 'MESSAGE',Blockly.Lua.ORDER_NONE) || '\'\'';
   let code = "Chat:BroadcastMessage" + '(' + subString + ')\n';
@@ -165,3 +212,14 @@ Blockly.Lua['wait_func'] = function(block) {
   return code;
 };
 
+Blockly.Lua['game_createExplosion'] = function(block) {
+  let substring = Blockly.Lua.statementToCode(block, 'EachAffectedPart') || ''
+  let position = Blockly.Lua.valueToCode(block, 'Position', Blockly.Lua.ORDER_NONE)
+  let radius = Blockly.Lua.valueToCode(block, 'Radius', Blockly.Lua.ORDER_NONE)
+  let force = Blockly.Lua.valueToCode(block, 'Force', Blockly.Lua.ORDER_NONE)
+  let affectsanchored = block.getFieldValue('AffectsAnchored')
+
+  let code = 'game["Environment"]:CreateExplosion(' + position + ', ' + radius + ', ' + force + ', ' + affectsanchored + ', function()\n' + substring + 'end)\n';
+
+  return code;
+};

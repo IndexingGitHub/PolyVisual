@@ -178,6 +178,41 @@ Blockly.Blocks['instance_property'] = {
           );
     }
   };
+
+Blockly.Blocks['instance_runOnEvent'] = {
+  init: function() {
+    this.jsonInit({
+        "message0": "When Object %1 event %2 triggers do %3",
+        "args0": [
+          {
+            "type": "input_value",
+            "name": "OBJECT",
+            "check": "GameInstance"
+          },
+
+          {
+            "type": "input_value",
+            "name": "EVENT",
+            "check": "String",
+            "previousStatement": "Action",
+            "nextStatement": "Action",
+          },
+
+          {
+            "type": "input_statement",
+            "name": "FUNCTION"
+          },
+        ],
+        "previousStatement": "Action",
+          "nextStatement": "Action",
+
+        "colour": "#ff4a4a",
+
+        }
+
+        );
+  }
+};
   
   Blockly.Lua['instance_create'] = function(block) {
     let subString = Blockly.Lua.valueToCode(block, 'INSTANCE_NAME',Blockly.Lua.ORDER_NONE) || '\'\'';
@@ -250,5 +285,13 @@ Blockly.Blocks['instance_property'] = {
       let code = varTag + "." + propertyName.replace(/'/g,"") + " = " + propertyValue + "\n";
       
   
+      return code;
+    };
+
+    Blockly.Lua['instance_runOnEvent'] = function(block) {
+      let subString = Blockly.Lua.statementToCode(block, 'FUNCTION') || '';
+      let object = Blockly.Lua.valueToCode(block, 'OBJECT', Blockly.Lua.ORDER_NONE);
+      let event = Blockly.Lua.valueToCode(block, 'EVENT', Blockly.Lua.ORDER_NONE).replace(/'/g, "");
+      let code = object + "." + event + ":Connect(function()\n" + subString +"end)\n";
       return code;
     };

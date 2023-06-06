@@ -37,6 +37,7 @@
   </head>
 
 <body>
+
   <div class="topbar">
       <button style="padding: 3px;"><img src="assets/logo.png" width="20" height="20"></button>
       <button onclick="OutputCode()"> Generate</button>
@@ -47,18 +48,26 @@
 
   </div>
 
-  <div id="codeOutput" class="w3-modal">
-    <div class="w3-modal-content">
-      <div class="w3-container">
-        <span onclick="document.getElementById('codeOutput').style.display='none'"
-        class="w3-button w3-display-topright">&times;</span>
-        <p>Code Output</p>
-        <button onclick="CopyCode()">Copy</button>
-        <p id="codeField"></p>
-        
-      </div>
+  <dialog id="Notice" style="width:50%;">
+    <div class="modal-header">
+      <p class="modal-title">Notice</p>
+      <button onclick="document.querySelector('dialog#Notice').close(); document.activeElement = document.body">X</button>
     </div>
-  </div>
+    <div class="modal-body">
+      <p>This project is forked off DevPixel's "PolyVisual" project which is powered by Google's Blockly developer library (& so is this project). This project is intended to add onto DevPixel's discontinued project.</p>
+    </div>
+  </dialog>
+
+  <dialog id="CodeOutput" style="width:50%; max-height: 75%;">
+    <div class="modal-header">
+      <p class="modal-title">Code Output</p>
+      <button onclick="document.querySelector('dialog#CodeOutput').close()">X</button>
+    </div>
+    <div class="modal-body">
+      <p id="CodeField"></p>
+      <button onclick="CopyCode(this)" style="background-color: #171717;border: 1px solid #383838; padding: 10px; border-radius: 10px; width: 125px; color: rgb(190, 221, 221);">Copy</button>
+    </div>
+  </dialog>
 
   <div id="shareOutput" class="w3-modal">
     <div class="w3-modal-content">
@@ -77,11 +86,28 @@
       </div>
     </div>
   </div>
-  
     <xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none"></xml>
     <div id="blocklyDiv" class="full-height"></div>
     <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-      <category name="Basic" colour="#bf2f24">
+      <category name="Game" colour="#bf2f24">
+        <block type="game_rendered"></block>
+
+        <block type="game_defineObject">
+          <value name="OBJECT_STRING">
+            <shadow type="text">
+              <field name="TEXT">game</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="wait_func">
+          <value name="WAIT_NUM">
+            <shadow type="math_number">
+              <field name="NUMBER">1</field>
+            </shadow>
+          </value>
+        </block>
+        
         <block type="game_broadcastMessage">
           <value name="MESSAGE">
             <shadow type="text">
@@ -98,25 +124,20 @@
           </value>
         </block>
 
-        <block type="game_rendered"></block>
-
-        <block type="wait_func">
-          <value name="WAIT_NUM">
+        <block type="game_createExplosion">
+          <value name="Radius">
             <shadow type="math_number">
-              <field name="NUMBER">1</field>
+              <field name="NUMBER">10</field>
+            </shadow>
+          </value>
+          <value name="Force">
+            <shadow type="math_number">
+              <field name="NUMBER">5000</field>
             </shadow>
           </value>
         </block>
 
         <block type="game_getDeltaTime"></block>
-
-        <block type="game_defineObject">
-          <value name="OBJECT_STRING">
-            <shadow type="text">
-              <field name="TEXT">game</field>
-            </shadow>
-          </value>
-        </block>
 
       </category>
       <category name="Instance" colour="#ff4a4a">
@@ -152,6 +173,14 @@
             <block type="instance_getChild"></block>
             <block type="instance_setParent"></block>
             <block type="instance_getAllChild"></block>
+            <block type="instance_runOnEvent">
+              <value name="OBJECT"></value>
+              <value name="EVENT">
+                <shadow type="text">
+                  <field name="TEXT">Clicked</field>
+                </shadow>
+              </value>
+            </block>
         </category>
 
         <category name="Players" colour="#ffa136">
@@ -161,6 +190,14 @@
           <block type="player_getJoinedPlr"></block>
           <block type="player_getLocalPlr"></block>
           <block type="player_getPlayer"></block>
+          <block type="player_kickPlayer">
+            <value name="Player"></value>
+            <value name="Reason">
+              <shadow type="text">
+                <field name="TEXT">Noob!</field>
+              </shadow>
+            </value>
+          </block>
         </category>
 
         <category name="Events" colour="#19e642">
@@ -170,6 +207,9 @@
           <block type="event_onInputDown"></block>
           <block type="event_onInputUp"></block>
           <block type="event_getKey"></block>
+
+          <block type="event_onChatMsg"></block>
+          <block type="event_getMsg"></block>
         </category>
 
         <category name="Types" colour="#592396">
@@ -188,10 +228,98 @@
         </category>
 
         <category name="Advanced" colour="#4f4f4f">
-          <block type="advanced_nativeLua"></block>
+          <block type="advanced_nativeLua">
+            <value name="NATIVE_CODE">
+              <shadow type="text">
+                <field name="TEXT">print("Custom Code")</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+
+        <category name="Datastores" colour="#5c5c5c">
+          <block type="datastore_getDatastore"></block>
+          <block type="datastore_getKey">
+            <value name="Key">
+              <shadow type="text">
+                <field name="TEXT">Coins</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="datastore_getRetrievedValue"></block>
+          <block type="datastore_setKey">
+            <value name="Key">
+              <shadow type="text">
+                <field name="TEXT">Coins</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="datastore_removeKey">
+            <value name="Key">
+              <shadow type="text">
+                <field name="TEXT">Coins</field>
+              </shadow>
+            </value>
+          </block>
+        </category>
+
+        <category name="HTTP" colour="#5577ee">
+          <block type="HTTP_get">
+            <value name="URL">
+              <shadow type="text">
+                <field name="TEXT">https://example.com/</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="HTTP_post">
+            <value name="URL">
+              <shadow type="text">
+                <field name="TEXT">https://example.com/</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="HTTP_delete">
+            <value name="URL">
+              <shadow type="text">
+                <field name="TEXT">https://example.com/</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="HTTP_put">
+            <value name="URL">
+              <shadow type="text">
+                <field name="TEXT">https://example.com/</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="HTTP_getData"></block>
+        </category>
+        <category name="Tween" colour="#3a0ca3">
+          <block type="tween_tween"></block>
+          <block type="tween_getCurrentValue"></block>
+        </category>
+
+        <category name="Network" colour="#ef233c">
+          <block type="network_newNetMsg"></block>
+          <block type="network_add">
+            <value name="Key">
+              <shadow type="text">
+                <field name="TEXT"></field>
+              </shadow>
+            </value>
+          </block>
+          <block type="network_get"></block>
         </category>
 
         <sep></sep>
+        <category name="Globals" colour="#000">
+          <block type="global_game"></block>
+          <block type="global_Environment"></block>
+          <block type="global_Hidden"></block>
+          <block type="global_Lighting"></block>
+          <block type="global_ScriptService"></block>
+          <block type="global_PlayerDefaults"></block>
+        </category>
         <category name="Logic" colour="210">
           <block type="controls_if"></block>
           <block type="logic_compare"></block>
@@ -445,6 +573,11 @@
           </block>
           <block type="lists_sort"></block>
         </category>
+        <category name="JSON">
+          <block type="JSON_parse"></block>
+          <block type="JSON_serialize"></block>
+          <block type="JSON_isNull"></block>
+        </category>
         
         <sep></sep>
         <category name="Variables" colour="330" custom="VARIABLE"></category>
@@ -458,41 +591,52 @@
     <script src="blocks/advanced_blocks.js"></script>
     <script src="blocks/vector3_blocks.js"></script>
     <script src="blocks/color_blocks.js"></script>
-
-    <script src="firebase/shareScript.js" type="module" async></script>
-    <script src="blocks/accountScript.js" async></script>
+    <script src="blocks/globals_blocks.js"></script>
+    <script src="blocks/datastores_blocks.js"></script>
+    <script src="blocks/json_blocks.js"></script>
+    <script src="blocks/http_blocks.js"></script>
+    <script src="blocks/tween_blocks.js"></script>
+    <script src="blocks/network_blocks.js"></script>
 
     <script>
       Blockly.inject('blocklyDiv',
-      {toolbox: document.getElementById('toolbox'),
-      grid:
-          {spacing: 20,
+        {
+          toolbox: document.getElementById('toolbox'),
+          grid: {
+            spacing: 20,
             length: 3,
             colour: '#304969',
-            snap: true},
-      trashcan: true});
+            snap: false
+          },
+          trashcan: true
+        }
+      );
 
-      let codeOutput = document.getElementById("codeOutput")
-      let codeField = document.getElementById("codeField")
+      let CodeOutput = document.querySelector("dialog#CodeOutput")
+      let CodeField = document.getElementById("CodeField")
       const fileSelector = document.createElement('input');
           fileSelector.setAttribute('type', 'file');
           fileSelector.setAttribute('accept', '.ptmv');
 
         function OutputCode() {
-            var code = Blockly.Lua.workspaceToCode(Blockly.mainWorkspace);
-            codeField.setAttribute('style', 'white-space: pre;');
-            codeField.textContent = code
-            codeOutput.style.display = "block"
+            /*var code = prettier.format(Blockly.Lua.workspaceToCode(Blockly.mainWorkspace), { semi: false, parser: "babel" });*/
+            var code = Blockly.Lua.workspaceToCode(Blockly.mainWorkspace)
+            CodeField.setAttribute('style', 'white-space: pre;');
+            CodeField.textContent = code
+            CodeOutput.querySelector('.modal-title').textContent = "Code Output (" + GetLineCount(code) + " lines)"
+            CodeOutput.showModal()
         }
 
-        function CopyCode() {
-          let TempText = document.createElement("input");
-            TempText.value = codeField.textContent;
-            document.body.appendChild(TempText);
-            TempText.select();
-            
-            document.execCommand("copy");
-            document.body.removeChild(TempText);
+        function CopyCode(btn) {
+          try {
+            navigator.clipboard.writeText(CodeField.textContent);
+            btn.innerText = "Success!"
+          } catch (err) {
+            btn.innerText = "Failed :("
+          }
+          setTimeout(function() {
+            btn.innerText = "Copy!"
+          }, 1750);
         }
 
         function SaveCode() {
@@ -512,6 +656,17 @@
             }, 0); 
         }
 
+        function GetLineCount(text){
+          var lines = text.split('\n')
+          var realLineCount = 0
+          for (var i = 0; i < lines.length; i++) {
+            if (!(lines.i === "")){
+              realLineCount = realLineCount + 1
+            }
+          }
+          return realLineCount
+        }
+
         let isCtrl = false;
         document.onkeyup=function(e){
             if(e.keyCode == 17) isCtrl=false;
@@ -526,11 +681,13 @@
         }
 
         function LoadCode() {
-
-          if (confirm("This action will overwrite all unsaved changes, Are you sure?")) {
+          if (!(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)) === '<xml xmlns="https://developers.google.com/blockly/xml"></xml>')) {
+            if (confirm("This action will overwrite all unsaved changes, Are you sure?")) {
+              fileSelector.click()
+            }
+          } else {
             fileSelector.click()
           }
-        
         }
 
         function handleFileLoad(evt) {
@@ -556,12 +713,35 @@
 
         fileSelector.addEventListener('change', handleFileLoad, false);
 
+    /*
     function ClearWorkspace() {
       if (confirm("This will clear your workspace and other caches, Are you sure?")) {
         window.localStorage.clear()
         Blockly.mainWorkspace.clear()
+        var categories = document.querySelectorAll('div.blocklyToolboxCategory')
+        console.log(categories.length)
+        categories.forEach(function(category) {
+          if (category.getAttribute('selected') === "true") {
+            category.setAttribute('selected', "false");
+            category.children[0].classList.remove('blocklyTreeSelected')
+          }
+        });
       }
     }
+    */
+    function ClearWorkspace() {
+      if (!(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.mainWorkspace)) === '<xml xmlns="https://developers.google.com/blockly/xml"></xml>')) {
+        if (confirm("This will clear your workspace and other caches, Are you sure?")) {
+          window.localStorage.clear()
+          Blockly.mainWorkspace.clear()
+        }
+      } else {
+        window.localStorage.clear()
+        Blockly.mainWorkspace.clear()
+      }
+    }
+
+    document.querySelector('dialog#Notice').showModal();
 
     window.addEventListener("beforeunload", function (e) {
     var confirmationMessage = 'It looks like you have been editing something. '
@@ -572,8 +752,6 @@
 });
 
     </script>
-
-    <script type='text/javascript' src='firebase/firebaseAccess.js'></script>
     <script>
       window.addEventListener("load", () => {
       if ("serviceWorker" in navigator) {

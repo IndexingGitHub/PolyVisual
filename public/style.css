@@ -26,12 +26,15 @@ height: 100%;
 }
 
 .blocklyToolboxDiv, body {
-background-color: #152e4d;
+    background-color: #262626;
 }
 
 .blocklyTreeSeparator {
-border-color: rgb(119, 119, 119) !important;
-
+border-color: #161616 !important;
+width: 85%;
+margin-right: auto;
+margin-left: auto;
+border-radius: 100%;
 }
 
 .blocklySvg, .blocklyTreeSeparator {
@@ -39,7 +42,7 @@ background-color: #12263f;
 }
 
 .blocklyFlyoutBackground {
-fill: #152e4d !important;
+fill: #161616 !important;
 }
 
 .blocklyScrollbarHandle {
@@ -73,10 +76,12 @@ fill: rgb(13, 18, 48) !important;
 }
 
 .topbar {
+    background: #161616;
     outline: none;
-    color: white;
+    color: #545454;
     font-family: 'Comfortaa', cursive;
-    font-size: 13px;
+    font-size: 14.5px;
+    font-weight: bold;
 }
 
 .topbar button {
@@ -84,15 +89,22 @@ fill: rgb(13, 18, 48) !important;
     border: none;
     background: transparent;
     padding: 5px 10px;
-    color: white;
+    color: #545454;
     font-family: 'Comfortaa', cursive;
     cursor: pointer;
 }
 
 .blocklyWidgetDiv .blocklyMenu, .blocklyDropDownDiv {
-    background: #0a182b !important;
+    background: #262626 !important;
     overflow-y: hidden !important;
     border: none;
+}
+
+.blocklyTreeRow {
+  border-radius: 0.25rem;
+  margin-left: 5px;
+  margin-right: 5px;
+  background: #161616;
 }
 
 .blocklyMenuItem[aria-disabled="false"] {
@@ -106,3 +118,61 @@ fill: rgb(13, 18, 48) !important;
 .float-end {
     float: right;
 }
+
+.text.blocklyText {
+  overflow: hidden;
+}
+
+dialog {
+    padding: 15px;
+    width: 75%;
+    border-radius: 10px;
+    background-color: #262626;
+    border: 2px solid #353535;
+}
+
+dialog .modal-title {
+    font-family: 'Comfortaa', cursive;
+    font-weight: bold;
+    font-size: 14.5px;
+    color: #545454;
+    margin: 0px;
+}
+
+dialog .modal-body, dialog .model-body p {
+    color: #fff;
+    margin: 0px !important;
+}
+
+dialog .modal-header button[onclick] {
+    all: unset;
+    background: transparent;
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    top:0;
+    right:0;
+    cursor: pointer;
+    padding: 15px;
+}
+
+dialog .modal-header button[onclick]:hover {
+    color: red;
+}
+
+dialog {
+    font-family: 'Comfortaa', cursive;
+}
+
+dialog button {
+    cursor: pointer;
+}
+
+dialog button:hover, dialog button:focus {
+    background-color: #1e1e1e !important;
+    font-weight: bold;
+}
+
+dialog::backdrop {
+    background: rgba(15, 15, 15, 0.25);
+} 
