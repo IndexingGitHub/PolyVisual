@@ -8,32 +8,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/msg/en.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/6.20210701.0/lua_compressed.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Source+Code+Pro:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link href="style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="style.css" rel="stylesheet">
     <!-- Primary Meta Tags -->
-<title>PolyVisual</title>
-<meta name="title" content="PolyVisual">
-<meta name="description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
+    <title>PolyVisual</title>
+    <meta name="title" content="PolyVisual">
+    <meta name="description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="PolyVisual">
-<meta property="og:description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
-<meta property="og:image" content="https://polyvisual.web.app/assets/logo.png">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PolyVisual">
+    <meta property="og:description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
+    <meta property="og:image" content="assets/logo.png">
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="PolyVisual">
-<meta property="twitter:description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
-<meta property="twitter:image" content="https://polyvisual.web.app/assets/logo.png">
-  
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="PolyVisual">
+    <meta property="twitter:description" content="PolyVisual is a block programming for  Polytoria. The page will generate you the result Lua file, Just go ahead and code!">
+    <meta property="twitter:image" content="assets/logo.png">
+      
   </head>
 
 <body>
@@ -43,7 +42,6 @@
       <button onclick="OutputCode()"> Generate</button>
       <button onclick="SaveCode()">Save</button>
       <button onclick="LoadCode()">Load</button>
-      <button id="shareBtn">Share</button>
       <button onclick="ClearWorkspace()">Clear</button>
 
   </div>
@@ -54,7 +52,7 @@
       <button onclick="document.querySelector('dialog#Notice').close(); document.activeElement = document.body">X</button>
     </div>
     <div class="modal-body">
-      <p>This project is forked off DevPixel's "PolyVisual" project which is powered by Google's Blockly developer library (& so is this project). This project is intended to add onto DevPixel's discontinued project.</p>
+      <p>This project is forked off DevPixel's "PolyVisual" project which is powered by Google's Blockly developer library (& so is this project). This project is intended to add onto DevPixel's discontinued project.<br><img src="assets/logo.png"><br>Fork created by Index</p>
     </div>
   </dialog>
 
@@ -69,23 +67,6 @@
     </div>
   </dialog>
 
-  <div id="shareOutput" class="w3-modal">
-    <div class="w3-modal-content">
-      <div class="w3-container">
-        <span onclick="document.getElementById('shareOutput').style.display='none'"
-        class="w3-button w3-display-topright">&times;</span>
-        <p>Share Link</p>
-        <label>Share URL:</label>
-        <input type="url" id="shareURL"><br>
-
-        <label>Embed:</label>
-        <input type="url" id="shareEmbed"><br>
-
-        <br>
-        
-      </div>
-    </div>
-  </div>
     <xml xmlns="https://developers.google.com/blockly/xml" id="workspaceBlocks" style="display: none"></xml>
     <div id="blocklyDiv" class="full-height"></div>
     <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
@@ -232,6 +213,13 @@
             <value name="NATIVE_CODE">
               <shadow type="text">
                 <field name="TEXT">print("Custom Code")</field>
+              </shadow>
+            </value>
+          </block>
+          <block type="advanced_comment">
+            <value name="Text">
+              <shadow type="text">
+                <field name="TEXT">Hello, World!</field>
               </shadow>
             </value>
           </block>

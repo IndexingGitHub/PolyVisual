@@ -158,7 +158,8 @@ Blockly.Blocks['game_createExplosion'] = {
             }
           ],
 
-          "colour": "#ffa136",
+          "inputsInline": false,
+          "colour": "#bf2f24",
           "previousStatement": "Action",
             "nextStatement": "Action"
 

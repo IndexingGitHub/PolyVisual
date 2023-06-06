@@ -28,3 +28,30 @@ Blockly.Lua['advanced_nativeLua'] = function(block) {
   
   return code;
 };
+
+Blockly.Blocks['advanced_comment'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": "# %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "Text"
+        }
+      ],
+
+      "colour": "#4f4f4f",
+      "previousStatement": "Action",
+        "nextStatement": "Action",
+
+      }
+
+      );
+  }
+};
+
+Blockly.Lua['advanced_comment'] = function(block) {
+  let code = '-- ' + Blockly.Lua.valueToCode(block, 'Text', Blockly.Lua.ORDER_NONE).replace(/'/g, "");
+
+  return code;
+};
