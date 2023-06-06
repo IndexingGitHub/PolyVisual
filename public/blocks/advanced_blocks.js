@@ -51,7 +51,7 @@ Blockly.Blocks['advanced_comment'] = {
 };
 
 Blockly.Lua['advanced_comment'] = function(block) {
-  let code = '-- ' + Blockly.Lua.valueToCode(block, 'Text', Blockly.Lua.ORDER_NONE).replace(/'/g, "");
+  let code = '-- ' + Blockly.Lua.valueToCode(block, 'Text', Blockly.Lua.ORDER_NONE).replace(/'/g, "") + '\n';
 
   return code;
 };
