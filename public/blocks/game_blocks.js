@@ -224,3 +224,77 @@ Blockly.Lua['game_createExplosion'] = function(block) {
 
   return code;
 };
+
+Blockly.Blocks['game_createRaycast'] = {
+  init: function() {
+      this.jsonInit({
+          "message0": "Create %1 with an origin at %2 directed towards %3 with a max distance of %4",
+          "args0": [
+            {
+              "type": "field_dropdown",
+              "name": "Type",
+              "options": [
+                ["Raycast", "Raycast"],
+                ["Raycast All", "RaycastAll"]
+              ]
+            },
+            {
+              "type": "input_value",
+              "name": "Origin",
+              "check": "Vector3"
+            },
+            {
+              "type": "input_value",
+              "name": "Direction",
+              "check": "Vector3"
+            },
+            {
+              "type": "input_value",
+              "name": "MaxDistance",
+              "check": "Number"
+            },
+          ],
+
+          "colour": "#bf2f24",
+          "output": "GameInstance"
+
+          }
+
+          );
+  }
+};
+
+Blockly.Lua['game_createRaycast'] = function(block) {
+  let origin = Blockly.Lua.valueToCode(block, 'Origin', Blockly.Lua.ORDER_NONE)
+  let direction = Blockly.Lua.valueToCode(block, 'Direction', Blockly.Lua.ORDER_NONE)
+  let maxdistance = Blockly.Lua.valueToCode(block, 'MaxDistance', Blockly.Lua.ORDER_NONE)
+  let code = 'game["Environment"]:Raycast(' + origin + ', ' + direction + ', ' + maxdistance + ')';
+
+  return [code, Blockly.Lua.ORDER_ADDITIVE];
+};
+
+Blockly.Blocks['game_getRayResult'] = {
+  init: function() {
+      this.jsonInit({
+          "message0": "Get Raycast Result %1",
+          "args0": [
+            {
+              "type": "input_value",
+              "name": "Raycast"
+            },
+          ],
+
+          "colour": "#ffa136",
+          "output": "GameInstance"
+
+          }
+
+          );
+  }
+};
+
+Blockly.Lua['game_getRayResult'] = function(block) {
+  let code = 'plr';
+
+  return code;
+};
