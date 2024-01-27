@@ -42,6 +42,7 @@ Blockly.Blocks['advanced_nativeLuaAddon'] = {
             },
         ],
 
+        "output": "string",
         "colour": "#4f4f4f",
 
         }
