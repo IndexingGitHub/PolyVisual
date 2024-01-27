@@ -117,3 +117,43 @@ Blockly.Lua['global_PlayerDefaults'] = function(block) {
 
     return [code, Blockly.Lua.ORDER_ADDITIVE];
 };
+
+Blockly.Blocks['global_this'] = {
+    init: function() {
+        this.jsonInit({
+            "message0": "This Script",
+
+            "colour": "#000",
+            "output": "GameInstance"
+
+            }
+
+            );
+    }
+};
+
+Blockly.Lua['global_this'] = function(block) {
+    let code = 'script';
+
+    return [code, Blockly.Lua.ORDER_ADDITIVE];
+};
+
+Blockly.Blocks['global_thisParent'] = {
+    init: function() {
+        this.jsonInit({
+            "message0": "This Script's Parent",
+
+            "colour": "#000",
+            "output": "GameInstance"
+
+            }
+
+            );
+    }
+};
+
+Blockly.Lua['global_thisParent'] = function(block) {
+    let code = 'script.Parent';
+
+    return [code, Blockly.Lua.ORDER_ADDITIVE];
+};
